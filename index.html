@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        let hostname = location.hostname;
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById("page-title").innerText = hostname;
+            document.getElementById("host-name").innerText = hostname;
+        });
+    </script>
+    <title id="page-title">Serwer WWW</title>
+</head>
+<body>
+    <h1>Serwer WWW - Hosting</h1>
+    <h3 id="host-name">Serwer WWW</h3>
+    <p>Ten serwer WWW jest hostowany na kontenerze Docker.</p>
+    <p>Możesz uzyskać dostęp do tej strony, wpisując adres IP lub nazwę hosta kontenera w przeglądarce.</p>
+    <a id="link" href="assets/">Link do zasobów</a>
+</body>
+</html>

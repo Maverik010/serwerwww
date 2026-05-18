@@ -36,14 +36,18 @@ echo -e -n "${CYAN}Podaj nazwę kontenera: ${NC}"
 read container_name
 sleep 1;
 
-if ! su root -c "docker build -t serwerwww ." 2>/dev/null; then
-    echo -e "${RED}Błąd: budowanie obrazu Docker nie powiodło się.${NC}"
-    exit 1
+su root -c "docker build -t serwerwww . && exit 0" 2>/dev/null;
+
+if $? -ne 0; then
+    echo -e "${RED}Błąd podczas budowania obrazu Docker. Upewnij się, że masz zainstalowany Docker i że jesteś zalogowany jako root.${NC}"
+    exit 1;
 fi
 
-if ! su root -c "docker run -d -p 80:80 -p 443:443 --name $container_name serwerwww" 2>/dev/null; then
-    echo -e "${RED}Błąd: uruchomienie kontenera Docker nie powiodło się.${NC}"
-    exit 1
+su root -c "docker run -d -p 80:80 -p 443:443 --name $container_name serwerwww" 2>/dev/null;
+
+if $? -ne 0; then
+    echo -e "${RED}Błąd podczas uruchamiania kontenera Docker. Upewnij się, że masz zainstalowany Docker i że jesteś zalogowany jako root.${NC}"
+    exit 1;
 fi
 
 echo -e "${GREEN}Projekt serwera WWW został pomyślnie utworzony i uruchomiony w kontenerze '$container_name'.${NC}"
